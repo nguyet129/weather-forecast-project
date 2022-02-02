@@ -1,0 +1,205 @@
+.container {
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: "Corben", cursive;
+}
+img {
+  display: block;
+  margin: 0 auto;
+}
+form {
+  margin: 20px 30px;
+}
+h1 {
+  color: #31326f;
+  text-align: center;
+  background: #dbf6e9;
+  border-radius: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+h2 {
+  font-size: 20px;
+  color: #31326f;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+footer {
+  text-align: center;
+  color: #31326f;
+  padding: 20px;
+  padding-bottom: 10px;
+  font-size: 18px;
+  font-weight: 900;
+  font-family: "Lobster Two", cursive;
+}
+
+.card {
+  background-color: #9ddfd3;
+  color: black;
+  border: 1px solid #9ddfd3;
+  border-radius: 20px;
+  box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
+}
+.sid .button {
+  background-color: #ffc93c;
+  border: 1px solid #ffc93c;
+  border-radius: 30px;
+  color: black;
+  box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
+}
+
+.forecast {
+  border: 1px solid #31326f;
+  background-color: #31326f;
+  border-radius: 20px;
+  padding: 25px;
+}
+.report {
+  border: 1px solid #9ddfd3;
+  background-color: #9ddfd3;
+  border-radius: 20px;
+  color: #31326f;
+  padding: 30px;
+}
+.date {
+  font-size: 18px;
+  line-height: 25px;
+}
+.place {
+  font-size: 50px;
+  margin-top: 10px;
+  font-family: "Lobster Two", cursive;
+}
+.box {
+  text-align: center;
+  border: 1px solid #31326f;
+  background-color: #31326f;
+  border-radius: 20px;
+  color: #dbf6e9;
+  box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
+  margin-top: 20px;
+  padding: 20px;
+  transition: all 150ms ease-in-out;
+  cursor: default;
+}
+.box:hover {
+  border: 1px solid rgb(49, 50, 111);
+  color: rgb(49, 50, 111);
+  background-color: rgb(255, 201, 60, 0.8);
+}
+.stat {
+  color: #f07b3f;
+  font-size: 50px;
+  font-weight: 900;
+  font-family: "Lobster Two", cursive;
+}
+
+.unit {
+  position: relative;
+  bottom: 32px;
+}
+
+.unit:hover {
+  cursor: pointer;
+}
+
+.cel_unit {
+  text-decoration: none;
+  color: #f07b3f;
+}
+.fah_unit {
+  text-decoration: none;
+  color: #dbf6e9;
+}
+.fah_unit:hover {
+  text-decoration: none;
+  color: #f07b3f;
+}
+
+.sub {
+  font-weight: 900;
+}
+.aqi,
+.uv {
+  font-weight: 900;
+}
+.aqi_explain,
+.uv_explain {
+  text-align: justify;
+}
+
+.future {
+  text-align: center;
+  background: #9ddfd3;
+  border-radius: 20px;
+  box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
+  margin: 20px 0 20px 0;
+  padding: 20px;
+}
+.future_each {
+  transition: all 150ms ease-in-out;
+  background-color: #dbf6e9;
+  border-radius: 10px;
+  box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
+}
+.future_each:hover {
+  background-color: rgb(255, 201, 60, 0.8);
+  border-radius: 10px;
+  cursor: default;
+}
+.future_date {
+  color: #dbf6e9;
+  font-weight: 600;
+  background: #f07b3f;
+  padding: 5px;
+  margin-top: 10px;
+}
+.future_icon {
+  color: #31326f;
+  font-size: 24px;
+}
+.future_temp {
+  color: #31326f;
+  font-size: 18px;
+}
+
+.current_others {
+  text-align: center;
+  background: #9ddfd3;
+  border-radius: 20px;
+  box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
+  margin: 20px 0 0 0;
+  padding: 20px;
+}
+.current_row {
+  margin: auto 5px 20px 5px;
+}
+.current_each {
+  background-color: #dbf6e9;
+  border-radius: 10px;
+  padding: 3px 10px 10px 10px;
+  box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
+}
+.current_each:hover {
+  background-color: rgb(255, 201, 60, 0.8);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cityimg {
+  background-color: #31326f;
+  border-radius: 10px;
+  color: #dbf6e9;
+  font-weight: 600;
+  padding: 5px;
+  margin-top: 10px;
+}
+.linkedin {
+  color: #31326f;
+  text-decoration: none;
+}
+.linkedin:hover {
+  color: #f07b3f;
+}
