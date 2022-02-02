@@ -97,7 +97,7 @@ footer {
 
 .unit {
   position: relative;
-  bottom: 32px;
+  bottom: 25px;
 }
 
 .unit:hover {
@@ -134,14 +134,15 @@ footer {
   background: #9ddfd3;
   border-radius: 20px;
   box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
-  margin: 20px 0 20px 0;
-  padding: 20px;
+  /* margin: 20px 0 20px 0; */
+  padding: 10px;
 }
 .future_each {
   transition: all 150ms ease-in-out;
   background-color: #dbf6e9;
   border-radius: 10px;
   box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
+  padding: 10px;
 }
 .future_each:hover {
   background-color: rgb(255, 201, 60, 0.8);
@@ -149,11 +150,11 @@ footer {
   cursor: default;
 }
 .future_date {
+  border-radius: 5px;
   color: #dbf6e9;
   font-weight: 600;
   background: #f07b3f;
   padding: 5px;
-  margin-top: 10px;
 }
 .future_icon {
   color: #31326f;
