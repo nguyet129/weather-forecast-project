@@ -67,30 +67,33 @@ fUnit.addEventListener("click", displayFTemp);
 
 //Feature 3: When a user searches for a city (example: New York), it should display the name of the city on the result page and the current temperature of the city.//
 
-//3.3. Retrieve and display city's temperature
-function displayCityTemp(response) {
+//3.2. Retrieve and display city's name and current temperature from 3.1 API call and inject the result into HTML//
+
+function displayCityNameTemp(response) {
+  console.log(response);
+  let retrievedCity = response.data.name;
+  let currentCity = document.querySelector("#current_place");
+  currentCity.innerHTML = retrievedCity;
+
   let retrievedTemp = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current_temp");
   currentTemp.innerHTML = retrievedTemp;
 }
 
-function displayCityName(event) {
-  //3.1. Display input city name//
+//3.1. Call Weather API using input city name//
+function retrieveCityInput(event) {
   event.preventDefault();
-  let cityInput = document.querySelector("#city_input");
-  let currentCity = document.querySelector("#current_place");
-  currentCity.innerHTML = cityInput.value;
-
-  //3.2. Call API to get temperature using city name//
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
+  let cityInput = document.querySelector("#city_input");
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
   let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayCityTemp);
+  axios.get(apiUrl).then(displayCityNameTemp);
 }
 let searchButton = document.querySelector("form");
-searchButton.addEventListener("submit", displayCityName);
+searchButton.addEventListener("submit", retrieveCityInput);
 
+//https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=0bc8b420ecade609fc97283e2769e598
 //Feature 4: Add a Current Location button. When clicking on it, it uses the Geolocation API to get your GPS coordinates and display and the city and current temperature using the OpenWeather API.//
 
 //4.3. Retrieve current city's name and current temperature from 4.2 API call and inject the result into HTML//
