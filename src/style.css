@@ -196,10 +196,14 @@ footer {
   padding: 5px;
   margin-top: 10px;
 }
-.linkedin {
-  color: #31326f;
+.social-btns {
   text-decoration: none;
 }
-.linkedin:hover {
+.platform-icon {
+  color: #31326f;
+  font-size: 30px;
+  margin: 10px;
+}
+.platform-icon:hover {
   color: #f07b3f;
 }
