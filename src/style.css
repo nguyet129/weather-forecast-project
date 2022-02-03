@@ -97,6 +97,7 @@ footer {
 
 .unit {
   position: relative;
+  color: #f07b3f;
   bottom: 25px;
 }
 
@@ -104,15 +105,15 @@ footer {
   cursor: pointer;
 }
 
-.cel_unit {
+.cel-unit {
   text-decoration: none;
   color: #f07b3f;
 }
-.fah_unit {
+.fah-unit {
   text-decoration: none;
   color: #dbf6e9;
 }
-.fah_unit:hover {
+.fah-unit:hover {
   text-decoration: none;
   color: #f07b3f;
 }
@@ -124,8 +125,8 @@ footer {
 .uv {
   font-weight: 900;
 }
-.aqi_explain,
-.uv_explain {
+.aqi-explain,
+.uv-explain {
   text-align: justify;
 }
 
@@ -137,35 +138,35 @@ footer {
   /* margin: 20px 0 20px 0; */
   padding: 20px;
 }
-.future_each {
+.future-each {
   transition: all 150ms ease-in-out;
   background-color: #dbf6e9;
   border-radius: 10px;
   box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
   padding: 10px;
 }
-.future_each:hover {
+.future-each:hover {
   background-color: rgb(255, 201, 60, 0.8);
   border-radius: 10px;
   cursor: default;
 }
-.future_date {
+.future-date {
   border-radius: 5px;
   color: #dbf6e9;
   font-weight: 600;
   background: #f07b3f;
   padding: 5px;
 }
-.future_icon {
+.future-icon {
   color: #31326f;
   font-size: 24px;
 }
-.future_temp {
+.future-temp {
   color: #31326f;
   font-size: 18px;
 }
 
-.current_others {
+.current-others {
   text-align: center;
   background: #9ddfd3;
   border-radius: 20px;
@@ -173,16 +174,16 @@ footer {
   margin: 20px 0 0 0;
   padding: 20px;
 }
-.current_row {
+.current-row {
   margin: auto 5px 20px 5px;
 }
-.current_each {
+.current-each {
   background-color: #dbf6e9;
   border-radius: 10px;
   padding: 3px 10px 10px 10px;
   box-shadow: rgba(77, 77, 88, 0.5) 0px 5px 5px 0;
 }
-.current_each:hover {
+.current-each:hover {
   background-color: rgb(255, 201, 60, 0.8);
   border-radius: 10px;
   cursor: pointer;
