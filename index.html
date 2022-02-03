@@ -48,7 +48,7 @@
               <a
                 href="https://www.indushealthplus.com/best-ways-to-stay-healthy-in-winter.html"
                 class="btn btn-warning button"
-                target="_blank"
+                target="-blank"
                 >More Lifestyle tips</a
               >
             </div>
@@ -72,7 +72,7 @@
                     placeholder="Enter city's name"
                     autocomplete="off"
                     class="form-control"
-                    id="city_input"
+                    id="city-input"
                     autofocus
                     required
                   />
@@ -81,12 +81,12 @@
                   <input
                     type="submit"
                     class="btn btn-warning button"
-                    id="city_search"
+                    id="city-search"
                     value="Search"
                   />
                 </div>
                 <div class="col-md-2">
-                  <button class="btn btn-warning button" id="current_search">
+                  <button class="btn btn-warning button" id="current-search">
                     Current
                   </button>
                 </div>
@@ -97,48 +97,51 @@
               <div class="row">
                 <div class="col-md">
                   <h1>
-                    <div class="date" id="current_time">
+                    <div class="date" id="current-time">
                       <strong> Monday, November 15</strong><br />
                       08:20
                     </div>
-                    <div class="place" id="current_place">Melbourne</div>
+                    <div class="place" id="current-place">Melbourne</div>
                   </h1>
                 </div>
               </div>
               <!--Search city report-->
               <div class="row">
                 <div class="col-md box">
-                  <span class="stat" id="current_temp">25</span>
+                  <span class="stat" id="current-temp">25</span>
                   <span class="unit">
-                    <a href="#" class="cel_unit">°C </a>
+                    <a href="#" class="cel-unit">°C</a>
                     <span>|</span>
-                    <a href="#" class="fah_unit">°F</a>
+                    <a href="#" class="fah-unit">°F</a>
                   </span>
                   <div class="sub">Temperature</div>
-                  <div class="temp_num">
-                    Max <span id="max_temp">28</span
-                    ><span id="max_unit">°C</span> <br />Min
-                    <span id="min_temp">21</span><span id="min_unit">°C</span>
+                  <div class="temp-num">
+                    Max <span id="max-temp">28</span
+                    ><span id="max-unit">°C</span> <br />Min
+                    <span id="min-temp">21</span><span id="min-unit">°C</span>
                   </div>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md box">
                   <div class="stat">🌤</div>
-                  <div class="sub">Partly Sunny</div>
+                  <div class="sub" id="description">Partly Sunny</div>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md box">
-                  <div class="stat">75%</div>
+                  <div>
+                    <span class="stat" id="precip-amount"> 0.5 </span>
+                    <span class="unit">mm</span>
+                  </div>
                   <div class="sub">Precipitation</div>
-                  <div class="precip_num">0.4mm</div>
+                  <div class="precip-des" id="precip-des">Rainy</div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md box">
                   <div class="aqi">Air Quality Index</div>
-                  <div class="stat">24</div>
-                  <div class="sub">Fair</div>
-                  <div class="aqi_explain">
+                  <div class="stat" id="aqi">24</div>
+                  <div class="sub" id="aqi-des">Fair</div>
+                  <div class="aqi-explain" id="aqi-detailed-des">
                     The air quality is generally acceptable for most
                     individuals. However, sensitive groups may experience minor
                     to moderate symptoms from long-term exposure.
@@ -147,9 +150,9 @@
                 <div class="col-1"></div>
                 <div class="col-md box">
                   <div class="uv">Max UV Index</div>
-                  <div class="stat">7</div>
-                  <div class="sub">High</div>
-                  <div class="uv_explain">
+                  <div class="stat" id="uvi">7</div>
+                  <div class="sub" id="uvi-des">High</div>
+                  <div class="uv-explain" id="uvi-detailed-des">
                     Protection needed. Seek shade during late morning through
                     mid-afternoon. When outside, generously apply broad-spectrum
                     SPF-15 or higher sunscreen on exposed skin, and wear
@@ -168,97 +171,97 @@
                   <span class="highlight">Upcoming days</span>
                 </em>
               </h2>
-              <div class="col-md future_each">
-                <div class="future_date">TUE</div>
-                <div class="future_icon">🌧</div>
-                <div class="future_temp">28°C</div>
+              <div class="col-md future-each">
+                <div class="future-date">TUE</div>
+                <div class="future-icon">🌧</div>
+                <div class="future-temp">28°C</div>
               </div>
               <div class="col-1"></div>
-              <div class="col-md future_each">
-                <div class="future_date">WED</div>
-                <div class="future_icon">🌧</div>
-                <div class="future_temp">28°C</div>
+              <div class="col-md future-each">
+                <div class="future-date">WED</div>
+                <div class="future-icon">🌧</div>
+                <div class="future-temp">28°C</div>
               </div>
               <div class="col-1"></div>
-              <div class="col-md future_each">
-                <div class="future_date">THU</div>
-                <div class="future_icon">🌧</div>
-                <div class="future_temp">28°C</div>
+              <div class="col-md future-each">
+                <div class="future-date">THU</div>
+                <div class="future-icon">🌧</div>
+                <div class="future-temp">28°C</div>
               </div>
               <div class="col-1"></div>
-              <div class="col-md future_each">
-                <div class="future_date">FRI</div>
-                <div class="future_icon">🌧</div>
-                <div class="future_temp">28°C</div>
+              <div class="col-md future-each">
+                <div class="future-date">FRI</div>
+                <div class="future-icon">🌧</div>
+                <div class="future-temp">28°C</div>
               </div>
               <div class="col-1"></div>
-              <div class="col-md future_each">
-                <div class="future_date">SAT</div>
-                <div class="future_icon">🌧</div>
-                <div class="future_temp">28°C</div>
+              <div class="col-md future-each">
+                <div class="future-date">SAT</div>
+                <div class="future-icon">🌧</div>
+                <div class="future-temp">28°C</div>
               </div>
             </div>
             <hr />
             <!--Other cities current-->
-            <div class="row current_others">
+            <div class="row current-others">
               <h2>
                 <em> Currently in other cities </em>
               </h2>
-              <div class="row current_row">
-                <div class="col-md current_each">
+              <div class="row current-row">
+                <div class="col-md current-each">
                   <div class="cityimg">
                     <img src="img/mpsydney.svg" alt="sydney" width="100px" />
                     <div class="city">Sydney</div>
                   </div>
-                  <div class="future_icon">🌧</div>
-                  <div class="future_temp">28°C</div>
+                  <div class="future-icon">🌧</div>
+                  <div class="future-temp">28°C</div>
                 </div>
                 <div class="col-1"></div>
-                <div class="col-md current_each">
+                <div class="col-md current-each">
                   <div class="cityimg">
                     <img src="img/mpkyoto.svg" alt="japan" width="100px" />
                     <div class="city">Kyoto</div>
                   </div>
-                  <div class="future_icon">🌧</div>
-                  <div class="future_temp">28°C</div>
+                  <div class="future-icon">🌧</div>
+                  <div class="future-temp">28°C</div>
                 </div>
                 <div class="col-1"></div>
-                <div class="col-md current_each">
+                <div class="col-md current-each">
                   <div class="cityimg">
                     <img src="img/mpmoscow.svg" alt="moscow" width="100px" />
                     <div class="city">Moscow</div>
                   </div>
-                  <div class="future_icon">🌧</div>
-                  <div class="future_temp">28°C</div>
+                  <div class="future-icon">🌧</div>
+                  <div class="future-temp">28°C</div>
                 </div>
               </div>
 
-              <div class="row current_row">
-                <div class="col-md current_each">
+              <div class="row current-row">
+                <div class="col-md current-each">
                   <div class="cityimg">
                     <img src="img/mplondon.svg" alt="london" width="100px" />
                     <div class="city">London</div>
                   </div>
-                  <div class="future_icon">🌧</div>
-                  <div class="future_temp">28°C</div>
+                  <div class="future-icon">🌧</div>
+                  <div class="future-temp">28°C</div>
                 </div>
                 <div class="col-1"></div>
-                <div class="col-md current_each">
+                <div class="col-md current-each">
                   <div class="cityimg">
                     <img src="img/mpny.svg" alt="new york" width="100px" />
                     <div class="city">New York</div>
                   </div>
-                  <div class="future_icon">🌧</div>
-                  <div class="future_temp">28°C</div>
+                  <div class="future-icon">🌧</div>
+                  <div class="future-temp">28°C</div>
                 </div>
                 <div class="col-1"></div>
-                <div class="col-md current_each">
+                <div class="col-md current-each">
                   <div class="cityimg">
                     <img src="img/mprio.svg" alt="rio" width="100px" />
                     <div class="city">Rio de Janeiro</div>
                   </div>
-                  <div class="future_icon">🌧</div>
-                  <div class="future_temp">28°C</div>
+                  <div class="future-icon">🌧</div>
+                  <div class="future-temp">28°C</div>
                 </div>
               </div>
             </div>
@@ -277,7 +280,7 @@
               <a
                 href="https://open.spotify.com/playlist/37i9dQZF1DWYxwmBaMqxsl?si=17c697c270714c02"
                 class="btn btn-warning button"
-                target="_blank"
+                target="-blank"
                 >Open Spotify</a
               >
             </div>
@@ -288,14 +291,14 @@
       <footer>
         <div>Coded by Nguyet Tang</div>
         <div class="social-btns">
-          <a href="mailto:tangminhnguyet99@gmail.com" target="_blank"
+          <a href="mailto:tangminhnguyet99@gmail.com" target="-blank"
             ><i class="fab fa-google-plus-square platform-icon"></i
           ></a>
-          <a href="https://github.com/nguyet129" target="_blank"
+          <a href="https://github.com/nguyet129" target="-blank"
             ><i class="fab fa-github-square platform-icon"></i>
             <a
               href="https://www.linkedin.com/in/nguyet-m-tang-411a79155/"
-              target="_blank"
+              target="-blank"
               ><i class="fab fa-linkedin platform-icon"></i
             ></a>
           </a>
