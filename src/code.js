@@ -86,6 +86,10 @@ function displayCityWeather(response) {
   let retrievedMinTemp = Math.round(response.data.main.temp_min);
   let minTemp = document.querySelector("#min-temp");
   minTemp.innerHTML = retrievedMinTemp;
+
+  let retrievedWeatherDescription = response.data.weather[0].description;
+  let WeatherDescription = document.querySelector("#description");
+  WeatherDescription.innerHTML = retrievedWeatherDescription;
 }
 
 //3.1. Call Weather API using input city name//

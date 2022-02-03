@@ -120,6 +120,7 @@ footer {
 
 .sub {
   font-weight: 900;
+  text-transform: capitalize;
 }
 .aqi,
 .uv {
