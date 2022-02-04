@@ -68,8 +68,28 @@ fUnit.addEventListener("click", displayFTemp);
 //Feature 3: When a user searches for a city (example: New York), it should display the name of the city on the result page and the current temperature of the city.//
 
 //3.2. Retrieve and display city's name and current temperature from 3.1 API call and inject the result into HTML//
-
 function displayCityWeather(response) {
+  console.log(response);
+  let retrievedWeatherDescription =
+    response.data.current.weather[0].description;
+  let WeatherDescription = document.querySelector("#description");
+  WeatherDescription.innerHTML = retrievedWeatherDescription;
+
+  let retrievedPrecipProb = `${response.data.hourly[0].pop * 100}%`;
+  console.log(typeof retrievedPrecipProb);
+  let PrecipProb = document.querySelector("#precip-prob");
+  PrecipProb.innerHTML = retrievedPrecipProb;
+
+  //To revisit - if retrieved prob = 0, precipamt = 0, else display retrieved precipamt//
+  let PrecipAmt = document.querySelector("#precip-amt");
+  if (retrievedPrecipProb === "0") {
+    PrecipAmt.innerHTML = `0`;
+  } else {
+    PrecipAmt.innerHTML = response.data.hourly[0].clouds;
+  }
+}
+
+function displayCityName(response) {
   console.log(response);
   let retrievedCity = response.data.name;
   let currentCity = document.querySelector("#current-place");
@@ -87,9 +107,13 @@ function displayCityWeather(response) {
   let minTemp = document.querySelector("#min-temp");
   minTemp.innerHTML = retrievedMinTemp;
 
-  let retrievedWeatherDescription = response.data.weather[0].description;
-  let WeatherDescription = document.querySelector("#description");
-  WeatherDescription.innerHTML = retrievedWeatherDescription;
+  let cityLon = response.data.coord.lon;
+  let cityLat = response.data.coord.lat;
+
+  let apiEndpoint = "https://api.openweathermap.org/data/2.5/onecall?";
+  let apiKey = "0bc8b420ecade609fc97283e2769e598";
+  let apiUrl = `${apiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayCityWeather);
 }
 
 //3.1. Call Weather API using input city name//
@@ -100,7 +124,7 @@ function retrieveCityInput(event) {
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
   let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayCityWeather);
+  axios.get(apiUrl).then(displayCityName);
 }
 let searchButton = document.querySelector("form");
 searchButton.addEventListener("submit", retrieveCityInput);
@@ -117,7 +141,7 @@ function retrieveLongLat(position) {
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
   let apiUrl = `${apiEndpoint}lat=${lat}&lon=${long}&units=${unit}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayCityWeather);
+  axios.get(apiUrl).then(displayCityName);
 }
 //4.1. Set up Current button to trigger retrieving user's long lat on click//
 function retrieveCurrentPosition(event) {
