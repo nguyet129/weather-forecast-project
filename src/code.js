@@ -166,7 +166,7 @@ function displayCityNameTemp(response) {
   let onecallApiUrl = `${onecallApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${onecallApiKey}`;
   axios.get(onecallApiUrl).then(displayCityWeather);
 
-  let aqiApiEndpoint = "http://api.openweathermap.org/data/2.5/air_pollution?";
+  let aqiApiEndpoint = "https://api.openweathermap.org/data/2.5/air_pollution?";
   let aqiApiKey = "0bc8b420ecade609fc97283e2769e598";
   let aqiApiUrl = `${aqiApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${aqiApiKey}`;
   axios.get(aqiApiUrl).then(displayCityAqi);
