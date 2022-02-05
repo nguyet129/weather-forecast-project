@@ -115,10 +115,10 @@ function displayCityWeather(response) {
 
   /*To revisit - if retrieved prob = 0, precipamt = 0, else display retrieved precipamt//
   let precipAmt = document.querySelector("#precip-amt");
-  if (retrievedPrecipProb == "0") {
+  if (Number(retrievedPrecipProb) == 0) {
     precipAmt.innerHTML = `0`;
   } else {
-    precipAmt.innerHTML = response.data.hourly[0].clouds;
+    precipAmt.innerHTML = response.data.hourly[0].rain["1h"];
   }*/
 
   let retrievedUvi = Math.round(response.data.current.uvi);
@@ -182,6 +182,10 @@ function displayCityNameTemp(response) {
   let retrievedCity = response.data.name;
   let currentCity = document.querySelector("#current-place");
   currentCity.innerHTML = retrievedCity;
+  let currentCityFuture = document.querySelector("#current-city-future");
+  currentCityFuture.innerHTML = retrievedCity;
+  let currentCityMusic = document.querySelector("#current-city-music");
+  currentCityMusic.innerHTML = retrievedCity;
 
   let retrievedCurrentTemp = Number(Math.round(response.data.main.temp));
   let currentTemp = document.querySelector("#current-temp");

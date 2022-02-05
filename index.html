@@ -131,17 +131,17 @@
                     </div>
                     <div class="col-md-1"></div>
                     <div class="col-md box">
-                      <img src="" height="75px" id="current-icon"></img>
+                      <img src="" height="75px" id="current-icon" />
                       <div class="sub" id="description">Partly Sunny</div>
                     </div>
                     <div class="col-md-1"></div>
                     <div class="col-md box">
                       <div class="stat" id="precip-prob">75%</div>
                       <div class="sub">Precipitation</div>
-                      <!--<div>
-                    <span class="precip_num" id="precip-amt">0.4</span
-                    ><span> mm</span>
-                  </div-->
+                      <!--div>
+                        <span class="precip_num" id="precip-amt">0.4</span
+                        ><span> mm</span>
+                      </div-->
                     </div>
                   </div>
                   <div class="row">
@@ -173,12 +173,11 @@
                 <hr />
                 <!--Search city future-->
                 <div class="row future">
-                  <h2>
-                    <em>
-                      <!-- <span class="highlight">Ho Chi Minh</span> -->
-                      <!-- in-->
-                      <span class="highlight">Upcoming days</span>
-                    </em>
+                  <h2 class="card-title">
+                    <span class="highlight">
+                      <span id="current-city-future">Melbourne</span> in
+                      upcoming days</span
+                    >
                   </h2>
                   <div class="col-md future-each">
                     <div class="future-date">TUE</div>
@@ -213,9 +212,7 @@
                 <hr />
                 <!--Other cities current-->
                 <div class="row current-others">
-                  <h2>
-                    <em> Currently in other cities </em>
-                  </h2>
+                  <h2 class="card-title">Currently in other cities</h2>
                   <div class="row current-row">
                     <div class="col-md current-each">
                       <div class="cityimg">
@@ -298,7 +295,8 @@
               <h5 class="card-title">Weather-based Music</h5>
               <p class="card-text">
                 Lighten your day with songs that go perfectly well with the
-                weather in your search area.
+                current weather in
+                <span id="current-city-music">Melbourne</span>.
               </p>
               <a
                 id="music-link"
