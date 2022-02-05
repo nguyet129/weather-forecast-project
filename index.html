@@ -58,210 +58,233 @@
         <div class="col-md-6">
           <div class="forecast">
             <!--Weather Guy Img-->
-            <div class="row">
-              <div class="col-md">
-                <img src="img/mpweather.svg" alt="weatherguy" />
-              </div>
-            </div>
-            <!--Search Bar-->
-            <form>
-              <div class="row">
-                <div class="col-md-6">
-                  <input
-                    type="search"
-                    placeholder="Enter city's name"
-                    autocomplete="off"
-                    class="form-control"
-                    id="city-input"
-                    autofocus
-                    required
-                  />
-                </div>
-                <div class="col-md-2">
-                  <input
-                    type="submit"
-                    class="btn btn-warning button"
-                    id="city-search"
-                    value="Search"
-                  />
-                </div>
-                <div class="col-md-3">
-                  <button class="btn btn-warning button" id="current-search">
-                    My City
-                  </button>
-                </div>
-              </div>
-            </form>
-            <!--Search city headline-->
-            <div class="report">
-              <div class="row">
-                <div class="col-md">
-                  <h1>
-                    <div class="date" id="current-time">
-                      <strong> Monday, November 15</strong><br />
-                      08:20
+            <div class="card forecastcard">
+              <img
+                src="img/mpweather.svg"
+                class="card-img-top"
+                alt="weather"
+                width="400px"
+                height="300px"
+              />
+              <div class="card-body">
+                <!--Search Bar-->
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input
+                        type="search"
+                        placeholder="Enter city's name"
+                        autocomplete="off"
+                        class="form-control"
+                        id="city-input"
+                        autofocus
+                        required
+                      />
                     </div>
-                    <div class="place" id="current-place">Melbourne</div>
-                  </h1>
-                </div>
-              </div>
-              <!--Search city report-->
-              <div class="row">
-                <div class="col-md box">
-                  <span class="stat" id="current-temp">25</span>
-                  <span class="unit">
-                    <a href="#" class="cel-unit">°C</a>
-                    <span>|</span>
-                    <a href="#" class="fah-unit">°F</a>
-                  </span>
-                  <div class="sub">Temperature</div>
-                  <div class="temp-num">
-                    Max <span id="max-temp">28</span
-                    ><span id="max-unit">°C</span> <br />Min
-                    <span id="min-temp">21</span><span id="min-unit">°C</span>
+                    <div class="col-md-2">
+                      <input
+                        type="submit"
+                        class="btn btn-warning button"
+                        id="city-search"
+                        value="Search"
+                      />
+                    </div>
+                    <div class="col-md-3">
+                      <button
+                        class="btn btn-warning button"
+                        id="current-search"
+                      >
+                        My City
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md box">
-                  <div class="stat">🌤</div>
-                  <div class="sub" id="description">Partly Sunny</div>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md box">
-                  <div class="stat" id="precip-prob">75%</div>
-                  <div class="sub">Precipitation</div>
-                  <!--<div>
+                </form>
+                <!--Search city headline-->
+                <div class="report">
+                  <div class="row">
+                    <div class="col-md">
+                      <h1>
+                        <div class="date" id="current-time">
+                          <strong> Monday, November 15</strong><br />
+                          08:20
+                        </div>
+                        <div class="place" id="current-place">Melbourne</div>
+                      </h1>
+                    </div>
+                  </div>
+                  <!--Search city report-->
+                  <div class="row">
+                    <div class="col-md box">
+                      <span class="stat" id="current-temp">25</span>
+                      <span class="unit">
+                        <a href="#" class="cel-unit">°C</a>
+                        <span>|</span>
+                        <a href="#" class="fah-unit">°F</a>
+                      </span>
+                      <div class="sub">Temperature</div>
+                      <div class="temp-num">
+                        Max <span id="max-temp">28</span
+                        ><span id="max-unit">°C</span> <br />Min
+                        <span id="min-temp">21</span
+                        ><span id="min-unit">°C</span>
+                      </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md box">
+                      <div class="stat">🌤</div>
+                      <div class="sub" id="description">Partly Sunny</div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md box">
+                      <div class="stat" id="precip-prob">75%</div>
+                      <div class="sub">Precipitation</div>
+                      <!--<div>
                     <span class="precip_num" id="precip-amt">0.4</span
                     ><span> mm</span>
                   </div-->
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md box">
-                  <div class="aqi">Air Quality Index</div>
-                  <div class="stat" id="aqi">24</div>
-                  <div class="sub" id="aqi-des">Fair</div>
-                  <div class="aqi-explain" id="aqi-detailed-des">
-                    The air quality is generally acceptable for most
-                    individuals. However, sensitive groups may experience minor
-                    to moderate symptoms from long-term exposure.
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md box">
+                      <div class="aqi">Air Quality Index</div>
+                      <div class="stat" id="aqi">24</div>
+                      <div class="sub" id="aqi-des">Fair</div>
+                      <div class="aqi-explain" id="aqi-detailed-des">
+                        The air quality is generally acceptable for most
+                        individuals. However, sensitive groups may experience
+                        minor to moderate symptoms from long-term exposure.
+                      </div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-md box">
+                      <div class="uv">Max UV Index</div>
+                      <div class="stat" id="uvi">7</div>
+                      <div class="sub" id="uvi-des">High</div>
+                      <div class="uv-explain" id="uvi-detailed-des">
+                        Protection needed. Seek shade during late morning
+                        through mid-afternoon. When outside, generously apply
+                        broad-spectrum SPF-15 or higher sunscreen on exposed
+                        skin, and wear protective clothing, a wide-brimmed hat,
+                        and sunglasses.
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-1"></div>
-                <div class="col-md box">
-                  <div class="uv">Max UV Index</div>
-                  <div class="stat" id="uvi">7</div>
-                  <div class="sub" id="uvi-des">High</div>
-                  <div class="uv-explain" id="uvi-detailed-des">
-                    Protection needed. Seek shade during late morning through
-                    mid-afternoon. When outside, generously apply broad-spectrum
-                    SPF-15 or higher sunscreen on exposed skin, and wear
-                    protective clothing, a wide-brimmed hat, and sunglasses.
+                <hr />
+                <!--Search city future-->
+                <div class="row future">
+                  <h2>
+                    <em>
+                      <!-- <span class="highlight">Ho Chi Minh</span> -->
+                      <!-- in-->
+                      <span class="highlight">Upcoming days</span>
+                    </em>
+                  </h2>
+                  <div class="col-md future-each">
+                    <div class="future-date">TUE</div>
+                    <div class="future-icon">🌧</div>
+                    <div class="future-temp">28°C</div>
+                  </div>
+                  <div class="col-1"></div>
+                  <div class="col-md future-each">
+                    <div class="future-date">WED</div>
+                    <div class="future-icon">🌧</div>
+                    <div class="future-temp">28°C</div>
+                  </div>
+                  <div class="col-1"></div>
+                  <div class="col-md future-each">
+                    <div class="future-date">THU</div>
+                    <div class="future-icon">🌧</div>
+                    <div class="future-temp">28°C</div>
+                  </div>
+                  <div class="col-1"></div>
+                  <div class="col-md future-each">
+                    <div class="future-date">FRI</div>
+                    <div class="future-icon">🌧</div>
+                    <div class="future-temp">28°C</div>
+                  </div>
+                  <div class="col-1"></div>
+                  <div class="col-md future-each">
+                    <div class="future-date">SAT</div>
+                    <div class="future-icon">🌧</div>
+                    <div class="future-temp">28°C</div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <hr />
-            <!--Search city future-->
-            <div class="row future">
-              <h2>
-                <em>
-                  <!-- <span class="highlight">Ho Chi Minh</span> -->
-                  <!-- in-->
-                  <span class="highlight">Upcoming days</span>
-                </em>
-              </h2>
-              <div class="col-md future-each">
-                <div class="future-date">TUE</div>
-                <div class="future-icon">🌧</div>
-                <div class="future-temp">28°C</div>
-              </div>
-              <div class="col-1"></div>
-              <div class="col-md future-each">
-                <div class="future-date">WED</div>
-                <div class="future-icon">🌧</div>
-                <div class="future-temp">28°C</div>
-              </div>
-              <div class="col-1"></div>
-              <div class="col-md future-each">
-                <div class="future-date">THU</div>
-                <div class="future-icon">🌧</div>
-                <div class="future-temp">28°C</div>
-              </div>
-              <div class="col-1"></div>
-              <div class="col-md future-each">
-                <div class="future-date">FRI</div>
-                <div class="future-icon">🌧</div>
-                <div class="future-temp">28°C</div>
-              </div>
-              <div class="col-1"></div>
-              <div class="col-md future-each">
-                <div class="future-date">SAT</div>
-                <div class="future-icon">🌧</div>
-                <div class="future-temp">28°C</div>
-              </div>
-            </div>
-            <hr />
-            <!--Other cities current-->
-            <div class="row current-others">
-              <h2>
-                <em> Currently in other cities </em>
-              </h2>
-              <div class="row current-row">
-                <div class="col-md current-each">
-                  <div class="cityimg">
-                    <img src="img/mpsydney.svg" alt="sydney" width="100px" />
-                    <div class="city">Sydney</div>
+                <hr />
+                <!--Other cities current-->
+                <div class="row current-others">
+                  <h2>
+                    <em> Currently in other cities </em>
+                  </h2>
+                  <div class="row current-row">
+                    <div class="col-md current-each">
+                      <div class="cityimg">
+                        <img
+                          src="img/mpsydney.svg"
+                          alt="sydney"
+                          width="100px"
+                        />
+                        <div class="city">Sydney</div>
+                      </div>
+                      <div class="future-icon">🌧</div>
+                      <div class="other-temp">28°C</div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-md current-each">
+                      <div class="cityimg">
+                        <img src="img/mpkyoto.svg" alt="japan" width="100px" />
+                        <div class="city">Kyoto</div>
+                      </div>
+                      <div class="future-icon">🌧</div>
+                      <div class="other-temp">28°C</div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-md current-each">
+                      <div class="cityimg">
+                        <img
+                          src="img/mpmoscow.svg"
+                          alt="moscow"
+                          width="100px"
+                        />
+                        <div class="city">Moscow</div>
+                      </div>
+                      <div class="future-icon">🌧</div>
+                      <div class="other-temp">28°C</div>
+                    </div>
                   </div>
-                  <div class="future-icon">🌧</div>
-                  <div class="other-temp">28°C</div>
-                </div>
-                <div class="col-1"></div>
-                <div class="col-md current-each">
-                  <div class="cityimg">
-                    <img src="img/mpkyoto.svg" alt="japan" width="100px" />
-                    <div class="city">Kyoto</div>
-                  </div>
-                  <div class="future-icon">🌧</div>
-                  <div class="other-temp">28°C</div>
-                </div>
-                <div class="col-1"></div>
-                <div class="col-md current-each">
-                  <div class="cityimg">
-                    <img src="img/mpmoscow.svg" alt="moscow" width="100px" />
-                    <div class="city">Moscow</div>
-                  </div>
-                  <div class="future-icon">🌧</div>
-                  <div class="other-temp">28°C</div>
-                </div>
-              </div>
 
-              <div class="row current-row">
-                <div class="col-md current-each">
-                  <div class="cityimg">
-                    <img src="img/mplondon.svg" alt="london" width="100px" />
-                    <div class="city">London</div>
+                  <div class="row current-row">
+                    <div class="col-md current-each">
+                      <div class="cityimg">
+                        <img
+                          src="img/mplondon.svg"
+                          alt="london"
+                          width="100px"
+                        />
+                        <div class="city">London</div>
+                      </div>
+                      <div class="future-icon">🌧</div>
+                      <div class="other-temp">28°C</div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-md current-each">
+                      <div class="cityimg">
+                        <img src="img/mpny.svg" alt="new york" width="100px" />
+                        <div class="city">New York</div>
+                      </div>
+                      <div class="future-icon">🌧</div>
+                      <div class="other-temp">28°C</div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-md current-each">
+                      <div class="cityimg">
+                        <img src="img/mprio.svg" alt="rio" width="100px" />
+                        <div class="city">Rio de Janeiro</div>
+                      </div>
+                      <div class="future-icon">🌧</div>
+                      <div class="other-temp">28°C</div>
+                    </div>
                   </div>
-                  <div class="future-icon">🌧</div>
-                  <div class="other-temp">28°C</div>
-                </div>
-                <div class="col-1"></div>
-                <div class="col-md current-each">
-                  <div class="cityimg">
-                    <img src="img/mpny.svg" alt="new york" width="100px" />
-                    <div class="city">New York</div>
-                  </div>
-                  <div class="future-icon">🌧</div>
-                  <div class="other-temp">28°C</div>
-                </div>
-                <div class="col-1"></div>
-                <div class="col-md current-each">
-                  <div class="cityimg">
-                    <img src="img/mprio.svg" alt="rio" width="100px" />
-                    <div class="city">Rio de Janeiro</div>
-                  </div>
-                  <div class="future-icon">🌧</div>
-                  <div class="other-temp">28°C</div>
                 </div>
               </div>
             </div>

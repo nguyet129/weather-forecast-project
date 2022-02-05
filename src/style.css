@@ -56,6 +56,10 @@ footer {
   border-radius: 20px;
   padding: 25px;
 }
+.forecastcard {
+  border: 1px solid #31326f;
+  background-color: #31326f;
+}
 .report {
   border: 1px solid #9ddfd3;
   background-color: #9ddfd3;
