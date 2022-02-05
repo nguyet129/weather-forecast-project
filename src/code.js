@@ -101,6 +101,13 @@ function displayCityWeather(response) {
   let weatherDescription = document.querySelector("#description");
   weatherDescription.innerHTML = retrievedWeatherDescription;
 
+  let retrievedWeatherIcon = response.data.current.weather[0].icon;
+  let weatherIcon = document.querySelector("#current-icon");
+  weatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${retrievedWeatherIcon}@2x.png`
+  );
+
   let retrievedPrecipProb = `${response.data.hourly[0].pop * 100}%`;
   console.log(typeof retrievedPrecipProb);
   let precipProb = document.querySelector("#precip-prob");
@@ -165,6 +172,42 @@ function displayCityWeather(response) {
 
   let uviDetailDesc = document.querySelector("#uvi-detailed-des");
   uviDetailDesc.innerHTML = retrievedUviDetailDesc;
+
+  //Feature 6: Music recommendation based on weather search result
+  let retrievedWeatherCode = Number(response.data.current.weather[0].id);
+  let musicLink = document.querySelector("#music-link");
+  if (retrievedWeatherCode < 500) {
+    musicLink.setAttribute(
+      "href",
+      "https://open.spotify.com/playlist/7cLOoKbAe6iYGo7L4XzrW3?si=9cb08d2e23234f91"
+    );
+  } else {
+    if (500 < retrievedWeatherCode && retrievedWeatherCode < 600) {
+      musicLink.setAttribute(
+        "href",
+        "https://open.spotify.com/playlist/37i9dQZF1DWYxwmBaMqxsl?si=17c697c270714c02"
+      );
+    } else {
+      if (600 < retrievedWeatherCode && retrievedWeatherCode < 700) {
+        musicLink.setAttribute(
+          "href",
+          "https://open.spotify.com/playlist/6vDncMJTjHNAsUDRLgKu4c?si=bdd4c1cb0aac4418"
+        );
+      } else {
+        if ((700 < retrievedWeatherCode) & (retrievedWeatherCode < 800)) {
+          musicLink.setAttribute(
+            "href",
+            "https://open.spotify.com/playlist/14ulZFfmhA9r5McS8RZDYG?si=7284cfca9e744aa6"
+          );
+        } else {
+          musicLink.setAttribute(
+            "href",
+            "https://open.spotify.com/playlist/1e82JSBwrnZF8TODtUcHeR?si=a2f71b04a8d5410b"
+          );
+        }
+      }
+    }
+  }
 }
 
 //3.2. Retrieve and display city's name and current temperature from 3.1 Weather API call. Inject the result into HTML.
