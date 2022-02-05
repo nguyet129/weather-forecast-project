@@ -172,9 +172,32 @@ function displayCityWeather(response) {
 
   let uviDetailDesc = document.querySelector("#uvi-detailed-des");
   uviDetailDesc.innerHTML = retrievedUviDetailDesc;
+}
+
+//3.2. Retrieve and display city's name and current temperature from 3.1 Weather API call. Inject the result into HTML.
+//Call Onecall and Air API using retrieved long lat from 3.1 Current Weather API call.
+
+function displayCityNameTemp(response) {
+  console.log(response);
+  let retrievedCity = response.data.name;
+  let currentCity = document.querySelector("#current-place");
+  currentCity.innerHTML = retrievedCity;
+
+  let retrievedCurrentTemp = Number(Math.round(response.data.main.temp));
+  let currentTemp = document.querySelector("#current-temp");
+  currentTemp.innerHTML = retrievedCurrentTemp;
+
+  let retrievedMaxTemp = Math.round(response.data.main.temp_max);
+  let maxTemp = document.querySelector("#max-temp");
+  maxTemp.innerHTML = retrievedMaxTemp;
+
+  let retrievedMinTemp = Math.round(response.data.main.temp_min);
+  let minTemp = document.querySelector("#min-temp");
+  minTemp.innerHTML = retrievedMinTemp;
 
   //Feature 6: Music recommendation based on weather search result
-  let retrievedWeatherCode = Number(response.data.current.weather[0].id);
+  let retrievedWeatherCode = Number(response.data.weather[0].id);
+  console.log(retrievedWeatherCode);
   let musicLink = document.querySelector("#music-link");
   if (retrievedWeatherCode < 500) {
     musicLink.setAttribute(
@@ -194,42 +217,29 @@ function displayCityWeather(response) {
           "https://open.spotify.com/playlist/6vDncMJTjHNAsUDRLgKu4c?si=bdd4c1cb0aac4418"
         );
       } else {
-        if ((700 < retrievedWeatherCode) & (retrievedWeatherCode < 800)) {
-          musicLink.setAttribute(
-            "href",
-            "https://open.spotify.com/playlist/14ulZFfmhA9r5McS8RZDYG?si=7284cfca9e744aa6"
-          );
-        } else {
+        if (retrievedWeatherCode > 800 && retrievedCurrentTemp > 10) {
           musicLink.setAttribute(
             "href",
             "https://open.spotify.com/playlist/1e82JSBwrnZF8TODtUcHeR?si=a2f71b04a8d5410b"
           );
+        } else {
+          if (retrievedWeatherCode > 800 && retrievedCurrentTemp < 10) {
+            musicLink.setAttribute(
+              "href",
+              "https://open.spotify.com/playlist/45khNqBoRenk2U4hb66baR?si=02ee8238c6ac4cf2"
+            );
+          } else {
+            if (700 < retrievedWeatherCode && retrievedWeatherCode < 800) {
+              musicLink.setAttribute(
+                "href",
+                "https://open.spotify.com/playlist/14ulZFfmhA9r5McS8RZDYG?si=7284cfca9e744aa6"
+              );
+            }
+          }
         }
       }
     }
   }
-}
-
-//3.2. Retrieve and display city's name and current temperature from 3.1 Weather API call. Inject the result into HTML.
-//Call Onecall and Air API using retrieved long lat from 3.1 Current Weather API call.
-
-function displayCityNameTemp(response) {
-  console.log(response);
-  let retrievedCity = response.data.name;
-  let currentCity = document.querySelector("#current-place");
-  currentCity.innerHTML = retrievedCity;
-
-  let retrievedCurrentTemp = Math.round(response.data.main.temp);
-  let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = retrievedCurrentTemp;
-
-  let retrievedMaxTemp = Math.round(response.data.main.temp_max);
-  let maxTemp = document.querySelector("#max-temp");
-  maxTemp.innerHTML = retrievedMaxTemp;
-
-  let retrievedMinTemp = Math.round(response.data.main.temp_min);
-  let minTemp = document.querySelector("#min-temp");
-  minTemp.innerHTML = retrievedMinTemp;
 
   let cityLon = response.data.coord.lon;
   let cityLat = response.data.coord.lat;
