@@ -166,7 +166,10 @@ footer {
   color: #31326f;
   font-size: 18px;
 }
-
+.other-temp {
+  color: #31326f;
+  font-size: 18px;
+}
 .current-others {
   text-align: center;
   background: #9ddfd3;

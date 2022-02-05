@@ -106,33 +106,63 @@ function displayCityWeather(response) {
   let precipProb = document.querySelector("#precip-prob");
   precipProb.innerHTML = retrievedPrecipProb;
 
-  //To revisit - if retrieved prob = 0, precipamt = 0, else display retrieved precipamt//
+  /*To revisit - if retrieved prob = 0, precipamt = 0, else display retrieved precipamt//
   let precipAmt = document.querySelector("#precip-amt");
-  if (retrievedPrecipProb === "0") {
+  if (retrievedPrecipProb == "0") {
     precipAmt.innerHTML = `0`;
   } else {
     precipAmt.innerHTML = response.data.hourly[0].clouds;
-  }
+  }*/
 
   let retrievedUvi = Math.round(response.data.current.uvi);
-  let uvIndexLookup = ["0", "0-2", "3-5", "6-7", "8-10", "11+"];
   let uvi = document.querySelector("#uvi");
-  uvi.innerHTML = uvIndexLookup[retrievedUvi];
+  uvi.innerHTML = retrievedUvi;
 
-  let uviLookup = ["None", "Low", "Moderate", "High", "Very High", "Extreme"];
+  let uviLookup = [
+    "Low",
+    "Low",
+    "Low",
+    "Moderate",
+    "Moderate",
+    "Moderate",
+    "High",
+    "High",
+    "Very High",
+    "Very High",
+    "Very High",
+    "Extreme",
+    "Extreme",
+    "Extreme",
+    "Extreme",
+  ];
   let retrievedUviDesc = uviLookup[retrievedUvi];
   let uviDesc = document.querySelector("#uvi-des");
   uviDesc.innerHTML = retrievedUviDesc;
 
-  let uviDetailLookup = [
-    "Wear sunglasses on bright days. If you burn easily, cover up and use broad spectrum SPF 15+ sunscreen. Bright surfaces, sand, water, and snow will increase UV exposure.",
-    "Wear sunglasses on bright days. If you burn easily, cover up and use broad spectrum SPF 15+ sunscreen. Bright surfaces, sand, water, and snow will increase UV exposure.",
-    "Stay in shade near midday when the Sun is strongest. If outdoors, wear sun-protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. Generously apply broad spectrum SPF 15+ sunscreen every 1.5 hours, even on cloudy days, and after swimming or sweating. Bright surfaces, such as sand, water, and snow, will increase UV exposure.",
-    "Reduce time in the sun between 10 a.m. and 4 p.m. If outdoors, seek shade and wear sun-protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. Generously apply broad spectrum SPF 15+ sunscreen every 1.5 hours, even on cloudy days, and after swimming or sweating. Bright surfaces, such as sand, water, and snow, will increase UV exposure.",
-    "Minimize sun exposure between 10 a.m. and 4 p.m. If outdoors, seek shade and wear sun-protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. Generously apply broad spectrum SPF 15+ sunscreen every 1.5 hours, even on cloudy days, and after swimming or sweating. Bright surfaces, such as sand, water, and snow, will increase UV exposure.",
-    "Try to avoid sun exposure between 10 a.m. and 4 p.m. If outdoors, seek shade and wear sun-protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. Generously apply broad spectrum SPF 15+ sunscreen every 1.5 hours, even on cloudy days, and after swimming or sweating. Bright surfaces, such as sand, water, and snow, will increase UV exposure.",
-  ];
-  let retrievedUviDetailDesc = uviDetailLookup[retrievedUvi];
+  let retrievedUviDetailDesc = "";
+  if (retrievedUviDesc == "Low") {
+    retrievedUviDetailDesc =
+      "Wear sunglasses on bright days. If you burn easily, cover up and use broad spectrum SPF 15+ sunscreen. Bright surfaces, sand, water, and snow will increase UV exposure.";
+  } else {
+    if (retrievedUviDesc == "Moderate") {
+      retrievedUviDetailDesc =
+        "Stay in shade near midday when the Sun is strongest. If outdoors, wear sun-protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. Generously apply broad spectrum SPF 15+ sunscreen every 1.5 hours, even on cloudy days, and after swimming or sweating. Bright surfaces, such as sand, water, and snow, will increase UV exposure.";
+    } else {
+      if (retrievedUviDesc == "High") {
+        retrievedUviDetailDesc =
+          "Reduce time in the sun between 10 a.m. and 4 p.m. If outdoors, seek shade and wear sun-protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. Generously apply broad spectrum SPF 15+ sunscreen every 1.5 hours, even on cloudy days, and after swimming or sweating. Bright surfaces, such as sand, water, and snow, will increase UV exposure.";
+      } else {
+        if (retrievedUviDesc == "Very High") {
+          retrievedUviDetailDesc =
+            "Minimize sun exposure between 10 a.m. and 4 p.m. If outdoors, seek shade and wear sun-protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. Generously apply broad spectrum SPF 15+ sunscreen every 1.5 hours, even on cloudy days, and after swimming or sweating. Bright surfaces, such as sand, water, and snow, will increase UV exposure.";
+        } else {
+          retrievedUviDetailDesc =
+            "Try to avoid sun exposure between 10 a.m. and 4 p.m. If outdoors, seek shade and wear sun-protective clothing, a wide-brimmed hat, and UV-blocking sunglasses. Generously apply broad spectrum SPF 15+ sunscreen every 1.5 hours, even on cloudy days, and after swimming or sweating. Bright surfaces, such as sand, water, and snow, will increase UV exposure.";
+        }
+      }
+    }
+  }
+
   let uviDetailDesc = document.querySelector("#uvi-detailed-des");
   uviDetailDesc.innerHTML = retrievedUviDetailDesc;
 }
@@ -206,3 +236,31 @@ function retrieveCurrentPosition(event) {
 }
 let currentButton = document.querySelector("#current-search");
 currentButton.addEventListener("click", retrieveCurrentPosition);
+
+//Feature 5: Display Weather Report of Tokyo by default
+window.onload = function displayDefaultWeather(event) {
+  event.preventDefault();
+  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
+  let cityInput = "Tokyo";
+  let apiKey = "0bc8b420ecade609fc97283e2769e598";
+  let unit = "metric";
+  let apiUrl = `${apiEndpoint}q=${cityInput}&units=${unit}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayCityNameTemp);
+};
+
+//Feature 6: Display Current weather in other cities by default
+
+/*function displayWeatherOtherCities(response) {
+  let retrievedTempOtherCities = Math.round(response.data.main.temp);
+  let tempOtherCities = document.querySelector(".other-temp");
+  tempOtherCities.innerHTML = retrievedTempOtherCities;
+}
+window.onload = function retrieveWeatherOtherCities(event) {
+  event.preventDefault();
+  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
+  let cityInput = document.querySelectorAll(".city");
+  let apiKey = "0bc8b420ecade609fc97283e2769e598";
+  let unit = "metric";
+  let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayWeatherOtherCities);
+};*/
