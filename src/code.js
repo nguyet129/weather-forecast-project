@@ -105,7 +105,7 @@ function displayCityWeather(response) {
   let weatherIcon = document.querySelector("#current-icon");
   weatherIcon.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${retrievedWeatherIcon}@2x.png`
+    `https://openweathermap.org/img/wn/${retrievedWeatherIcon}@2x.png`
   );
 
   let retrievedPrecipProb = `${response.data.hourly[0].pop * 100}%`;
