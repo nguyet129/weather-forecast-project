@@ -205,28 +205,28 @@ function displayCityNameTemp(response) {
       "https://open.spotify.com/playlist/7cLOoKbAe6iYGo7L4XzrW3?si=9cb08d2e23234f91"
     );
   } else {
-    if (500 < retrievedWeatherCode && retrievedWeatherCode < 600) {
+    if (500 <= retrievedWeatherCode && retrievedWeatherCode < 600) {
       musicLink.setAttribute(
         "href",
         "https://open.spotify.com/playlist/37i9dQZF1DWYxwmBaMqxsl?si=17c697c270714c02"
       );
     } else {
-      if (600 < retrievedWeatherCode && retrievedWeatherCode < 700) {
+      if (600 <= retrievedWeatherCode && retrievedWeatherCode < 700) {
         musicLink.setAttribute(
           "href",
           "https://open.spotify.com/playlist/6vDncMJTjHNAsUDRLgKu4c?si=bdd4c1cb0aac4418"
         );
       } else {
-        if (retrievedWeatherCode > 800 && retrievedCurrentTemp > 10) {
+        if (retrievedWeatherCode >= 800 && retrievedCurrentTemp < 15) {
           musicLink.setAttribute(
             "href",
-            "https://open.spotify.com/playlist/1e82JSBwrnZF8TODtUcHeR?si=a2f71b04a8d5410b"
+            "https://open.spotify.com/playlist/45khNqBoRenk2U4hb66baR?si=02ee8238c6ac4cf2"
           );
         } else {
-          if (retrievedWeatherCode > 800 && retrievedCurrentTemp < 10) {
+          if (retrievedWeatherCode >= 800 && retrievedCurrentTemp > 15) {
             musicLink.setAttribute(
               "href",
-              "https://open.spotify.com/playlist/45khNqBoRenk2U4hb66baR?si=02ee8238c6ac4cf2"
+              "https://open.spotify.com/playlist/1e82JSBwrnZF8TODtUcHeR?si=a2f71b04a8d5410b"
             );
           } else {
             if (700 < retrievedWeatherCode && retrievedWeatherCode < 800) {
