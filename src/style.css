@@ -34,7 +34,14 @@ footer {
   font-weight: 900;
   font-family: "Lobster Two", cursive;
 }
-
+a {
+  text-decoration: none;
+  color: #dbf6e9;
+}
+a:hover {
+  text-decoration: underline;
+  color: #f07b3f;
+}
 .card {
   background-color: #9ddfd3;
   color: black;
@@ -101,25 +108,18 @@ footer {
 
 .unit {
   position: relative;
-  color: #f07b3f;
   bottom: 25px;
 }
 
-.unit:hover {
-  cursor: pointer;
-}
-
-.cel-unit {
+.active {
   text-decoration: none;
   color: #f07b3f;
+  cursor: default;
 }
-.fah-unit {
-  text-decoration: none;
-  color: #dbf6e9;
-}
-.fah-unit:hover {
+.active:hover {
   text-decoration: none;
   color: #f07b3f;
+  cursor: default;
 }
 
 .sub {

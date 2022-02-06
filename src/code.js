@@ -39,32 +39,43 @@ currentTime.innerHTML = displayTime(now);
 //from F to C//
 function displayCTemp(event) {
   event.preventDefault();
-  let cTemp = document.querySelector("#current-temp");
-  cTemp.innerHTML = `25`;
+  let currentCTemp = document.querySelector("#current-temp");
+  currentCTemp.innerHTML = Math.round(cTemp);
+
+  cUnit.classList.add("active");
+  fUnit.classList.remove("active");
   //let maxTemp = document.querySelector("#max-temp");
   //let maxUnit = document.querySelector("#max-unit");
   //let minTemp = document.querySelector("#min-temp");
   //let minUnit = document.querySelector("#minUnit");
   let minMax = document.querySelector(".temp-num");
 
-  minMax.innerHTML = `Max 28°C<br />Min
-                     21°C`;
+  minMax.innerHTML = `Max ${Math.round(maxCTemp)}°C<br />Min
+                     ${Math.round(minCTemp)}°C`;
 }
-let cUnit = document.querySelector(".cel-unit");
-cUnit.addEventListener("click", displayCTemp);
 
 //from C to F//
 function displayFTemp(event) {
   event.preventDefault();
+  let currentFTemp = Math.round(cTemp * 1.8 + 32);
+  let maxFTemp = Math.round(maxCTemp * 1.8 + 32);
+  let minFTemp = Math.round(minCTemp * 1.8 + 32);
   let fTemp = document.querySelector("#current-temp");
-  fTemp.innerHTML = `77`;
-  let minMax = document.querySelector(".temp-num");
-  minMax.innerHTML = `Max 82°F<br />Min
-                     70°F`;
-}
-let fUnit = document.querySelector(".fah-unit");
-fUnit.addEventListener("click", displayFTemp);
 
+  fTemp.innerHTML = currentFTemp;
+
+  cUnit.classList.remove("active");
+  fUnit.classList.add("active");
+  let minMax = document.querySelector(".temp-num");
+  minMax.innerHTML = `Max ${maxFTemp}°F<br />Min
+                     ${minFTemp}°F`;
+}
+
+let cUnit = document.querySelector("#cel-unit");
+cUnit.addEventListener("click", displayCTemp);
+
+let fUnit = document.querySelector("#fah-unit");
+fUnit.addEventListener("click", displayFTemp);
 //Feature 3: When a user searches for a city (example: New York), it should display the name of the city on the result page and the current temperature of the city.//
 
 //3.3. Retrieve and display relevant weather info from 3.2 API calls and inject the result into HTML//
@@ -187,15 +198,18 @@ function displayCityNameTemp(response) {
   let currentCityMusic = document.querySelector("#current-city-music");
   currentCityMusic.innerHTML = retrievedCity;
 
-  let retrievedCurrentTemp = Number(Math.round(response.data.main.temp));
+  cTemp = response.data.main.temp;
+  let retrievedCurrentTemp = Number(Math.round(cTemp));
   let currentTemp = document.querySelector("#current-temp");
   currentTemp.innerHTML = retrievedCurrentTemp;
 
-  let retrievedMaxTemp = Math.round(response.data.main.temp_max);
+  maxCTemp = response.data.main.temp_max;
+  let retrievedMaxTemp = Math.round(maxCTemp);
   let maxTemp = document.querySelector("#max-temp");
   maxTemp.innerHTML = retrievedMaxTemp;
 
-  let retrievedMinTemp = Math.round(response.data.main.temp_min);
+  minCTemp = response.data.main.temp_min;
+  let retrievedMinTemp = Math.round(minCTemp);
   let minTemp = document.querySelector("#min-temp");
   minTemp.innerHTML = retrievedMinTemp;
 
@@ -269,6 +283,10 @@ function retrieveCityInput(event) {
   let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(displayCityNameTemp);
 }
+
+let cTemp = null;
+let maxCTemp = null;
+let minCTemp = null;
 let searchButton = document.querySelector("form");
 searchButton.addEventListener("submit", retrieveCityInput);
 
