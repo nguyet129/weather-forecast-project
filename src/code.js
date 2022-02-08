@@ -119,7 +119,7 @@ function displayCityWeather(response) {
     `https://openweathermap.org/img/wn/${retrievedWeatherIcon}@2x.png`
   );
 
-  let retrievedPrecipProb = `${response.data.hourly[0].pop * 100}%`;
+  let retrievedPrecipProb = `${Math.round(response.data.hourly[0].pop * 100)}%`;
   console.log(typeof retrievedPrecipProb);
   let precipProb = document.querySelector("#precip-prob");
   precipProb.innerHTML = retrievedPrecipProb;
@@ -204,12 +204,12 @@ function displayCityNameTemp(response) {
   currentTemp.innerHTML = retrievedCurrentTemp;
 
   maxCTemp = response.data.main.temp_max;
-  let retrievedMaxTemp = Math.round(maxCTemp);
+  let retrievedMaxTemp = Number(Math.round(maxCTemp));
   let maxTemp = document.querySelector("#max-temp");
   maxTemp.innerHTML = retrievedMaxTemp;
 
   minCTemp = response.data.main.temp_min;
-  let retrievedMinTemp = Math.round(minCTemp);
+  let retrievedMinTemp = Number(Math.round(minCTemp));
   let minTemp = document.querySelector("#min-temp");
   minTemp.innerHTML = retrievedMinTemp;
 
@@ -323,7 +323,27 @@ window.onload = function displayDefaultWeather(event) {
   axios.get(apiUrl).then(displayCityNameTemp);
 };
 
-//Feature 6: Display Current weather in other cities by default
+//Feature 6: Display Weather forecast of the input city
+
+function displayForecast() {
+  let forecast = document.querySelector("#weather-forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["TUE", "WED", "THU", "FRI", "SAT"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-md future-each">
+                    <div class="future-date">${day}</div>
+                    <div class="future-icon">🌧</div>
+                    <div class="future-temp">28°C</div>
+                  </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecast.innerHTML = forecastHTML;
+  console.log(forecastHTML);
+}
+displayForecast();
+//Feature 7: Display Current weather in other cities by default
 
 /*function displayWeatherOtherCities(response) {
   let retrievedTempOtherCities = Math.round(response.data.main.temp);
