@@ -31,16 +31,12 @@ function displayTime(date) {
   return `${currentDay}, ${currentMonth} ${currentDate} <br> ${currentHour} : ${currentMinute}`;
 }
 
-let currentTime = document.querySelector("#current-time");
-let now = new Date();
-currentTime.innerHTML = displayTime(now);
-
 //Feature 2: Display a fake temperature (i.e 25) in Celsius and add a link to convert it to Fahrenheit (ie. 77). When clicking on it, it should convert the temperature to Fahrenheit. When clicking on Celsius, it should convert it back to Celsius.
 //from F to C//
 function displayCTemp(event) {
   event.preventDefault();
   let currentCTemp = document.querySelector("#current-temp");
-  currentCTemp.innerHTML = Math.round(cTemp);
+  currentCTemp.innerHTML = Math.round(retrievedCTemp);
 
   cUnit.classList.add("active");
   fUnit.classList.remove("active");
@@ -48,40 +44,34 @@ function displayCTemp(event) {
   //let maxUnit = document.querySelector("#max-unit");
   //let minTemp = document.querySelector("#min-temp");
   //let minUnit = document.querySelector("#minUnit");
-  let minMax = document.querySelector(".temp-num");
-
-  minMax.innerHTML = `Max ${Math.round(maxCTemp)}°C<br />Min
-                     ${Math.round(minCTemp)}°C`;
+  let maxCTemp = document.querySelector("#max-temp");
+  let minCTemp = document.querySelector("#min-temp");
+  maxCTemp.innerHTML = Math.round(retrievedMaxCTemp);
+  minCTemp.innerHTML = Math.round(retrievedMinCTemp);
 }
 
 //from C to F//
 function displayFTemp(event) {
   event.preventDefault();
-  let currentFTemp = Math.round(cTemp * 1.8 + 32);
-  let maxFTemp = Math.round(maxCTemp * 1.8 + 32);
-  let minFTemp = Math.round(minCTemp * 1.8 + 32);
+  let currentFTemp = Math.round(retrievedCTemp * 1.8 + 32);
+  let retrievedMaxFTemp = Math.round(retrievedMaxCTemp * 1.8 + 32);
+  let retrievedMinFTemp = Math.round(retrievedMinCTemp * 1.8 + 32);
   let fTemp = document.querySelector("#current-temp");
 
   fTemp.innerHTML = currentFTemp;
 
   cUnit.classList.remove("active");
   fUnit.classList.add("active");
-  let minMax = document.querySelector(".temp-num");
-  minMax.innerHTML = `Max ${maxFTemp}°F<br />Min
-                     ${minFTemp}°F`;
+  let maxFTemp = document.querySelector("#max-temp");
+  let minFTemp = document.querySelector("#min-temp");
+  maxFTemp.innerHTML = retrievedMaxFTemp;
+  minFTemp.innerHTML = retrievedMinFTemp;
 }
-
-let cUnit = document.querySelector("#cel-unit");
-cUnit.addEventListener("click", displayCTemp);
-
-let fUnit = document.querySelector("#fah-unit");
-fUnit.addEventListener("click", displayFTemp);
 
 //Feature 3: When a user searches for a city (example: New York), it should display the name of the city on the result page and the current temperature of the city.//
 
 //3.3. Retrieve and display relevant weather info from 3.2 API calls and inject the result into HTML//
 function displayCityAqi(response) {
-  console.log(response);
   let retrievedAqi = response.data.list[0].main.aqi;
   //let aqiIndexLookup = ["0", "0-25", "25-50", "50-75", "75-100", "100+"];
   let aqi = document.querySelector("#aqi");
@@ -107,7 +97,6 @@ function displayCityAqi(response) {
 }
 
 function displayCityWeather(response) {
-  console.log(response);
   let retrievedWeatherDescription =
     response.data.current.weather[0].description;
   let weatherDescription = document.querySelector("#description");
@@ -121,7 +110,6 @@ function displayCityWeather(response) {
   );
 
   let retrievedPrecipProb = `${Math.round(response.data.hourly[0].pop * 100)}%`;
-  console.log(typeof retrievedPrecipProb);
   let precipProb = document.querySelector("#precip-prob");
   precipProb.innerHTML = retrievedPrecipProb;
 
@@ -214,30 +202,14 @@ function displayCityNameTemp(response) {
 
   cUnit.classList.add("active");
   fUnit.classList.remove("active");
-  let minMax = document.querySelector(".temp-num");
-  minMax.innerHTML = `Max ${Math.round(maxCTemp)}°C<br />Min
-                     ${Math.round(minCTemp)}°C`;
 
-  cTemp = response.data.main.temp;
-  let retrievedCurrentTemp = Number(Math.round(cTemp));
+  retrievedCTemp = response.data.main.temp;
+  let retrievedCurrentTemp = Number(Math.round(retrievedCTemp));
   let currentTemp = document.querySelector("#current-temp");
   currentTemp.innerHTML = retrievedCurrentTemp;
 
-  maxCTemp = response.data.main.temp_max;
-  let retrievedMaxTemp = Number(Math.round(maxCTemp));
-  let maxTemp = document.querySelector("#max-temp");
-  maxTemp.innerHTML = retrievedMaxTemp;
-
-  //bug: when user changes back and forth between C and F, then search another city, only the temperature data is refreshed.
-
-  minCTemp = response.data.main.temp_min;
-  let retrievedMinTemp = Number(Math.round(minCTemp));
-  let minTemp = document.querySelector("#min-temp");
-  minTemp.innerHTML = retrievedMinTemp;
-
   //Feature 6: Music recommendation based on weather search result
   let retrievedWeatherCode = Number(response.data.weather[0].id);
-  console.log(retrievedWeatherCode);
   let musicLink = document.querySelector("#music-link");
   if (retrievedWeatherCode < 500) {
     musicLink.setAttribute(
@@ -280,6 +252,16 @@ function displayCityNameTemp(response) {
       }
     }
   }
+  retrievedMaxCTemp = Number(Math.round(response.data.main.temp_max));
+  console.log(retrievedMaxCTemp);
+  let maxTemp = document.querySelector("#max-temp");
+  maxTemp.innerHTML = retrievedMaxCTemp;
+
+  //bug: when user changes back and forth between C and F, then search another city, only the temperature data is refreshed.
+
+  retrievedMinCTemp = Number(Math.round(response.data.main.temp_min));
+  let minTemp = document.querySelector("#min-temp");
+  minTemp.innerHTML = retrievedMinCTemp;
 }
 
 //3.1. Call Weather API using input city name//
@@ -292,11 +274,6 @@ function retrieveCityInput(event) {
   let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(displayCityNameTemp);
 }
-let cTemp = null;
-let maxCTemp = null;
-let minCTemp = null;
-let searchButton = document.querySelector("form");
-searchButton.addEventListener("submit", retrieveCityInput);
 
 //https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=0bc8b420ecade609fc97283e2769e598
 //Feature 4: Add a Current Location button. When clicking on it, it uses the Geolocation API to get your GPS coordinates and display and the city and current temperature using the OpenWeather API.//
@@ -317,14 +294,12 @@ function retrieveCurrentPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(retrieveLongLat);
 }
-let currentButton = document.querySelector("#current-search");
-currentButton.addEventListener("click", retrieveCurrentPosition);
 
 //Feature 5: Display Weather Report of Tokyo by default
 window.onload = function displayDefaultWeather(event) {
   event.preventDefault();
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
-  let cityInput = "Tokyo";
+  let cityInput = "melbourne";
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
   let apiUrl = `${apiEndpoint}q=${cityInput}&units=${unit}&appid=${apiKey}`;
@@ -348,8 +323,26 @@ function displayForecast() {
   });
   forecastHTML = forecastHTML + `</div>`;
   forecast.innerHTML = forecastHTML;
-  console.log(forecastHTML);
 }
+
+let currentTime = document.querySelector("#current-time");
+let now = new Date();
+currentTime.innerHTML = displayTime(now);
+
+let retrievedCTemp = null;
+let retrievedMaxCTemp = null;
+let retrievedMinCTemp = null;
+let searchButton = document.querySelector("form");
+searchButton.addEventListener("submit", retrieveCityInput);
+
+let cUnit = document.querySelector("#cel-unit");
+cUnit.addEventListener("click", displayCTemp);
+let fUnit = document.querySelector("#fah-unit");
+fUnit.addEventListener("click", displayFTemp);
+
+let currentButton = document.querySelector("#current-search");
+currentButton.addEventListener("click", retrieveCurrentPosition);
+
 displayForecast();
 //Feature 7: Display Current weather in other cities by default
 
