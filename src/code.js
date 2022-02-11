@@ -76,6 +76,7 @@ cUnit.addEventListener("click", displayCTemp);
 
 let fUnit = document.querySelector("#fah-unit");
 fUnit.addEventListener("click", displayFTemp);
+
 //Feature 3: When a user searches for a city (example: New York), it should display the name of the city on the result page and the current temperature of the city.//
 
 //3.3. Retrieve and display relevant weather info from 3.2 API calls and inject the result into HTML//
@@ -198,6 +199,25 @@ function displayCityNameTemp(response) {
   let currentCityMusic = document.querySelector("#current-city-music");
   currentCityMusic.innerHTML = retrievedCity;
 
+  let cityLon = response.data.coord.lon;
+  let cityLat = response.data.coord.lat;
+
+  let onecallApiEndpoint = "https://api.openweathermap.org/data/2.5/onecall?";
+  let onecallApiKey = "0bc8b420ecade609fc97283e2769e598";
+  let onecallApiUrl = `${onecallApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${onecallApiKey}`;
+  axios.get(onecallApiUrl).then(displayCityWeather);
+
+  let aqiApiEndpoint = "https://api.openweathermap.org/data/2.5/air_pollution?";
+  let aqiApiKey = "0bc8b420ecade609fc97283e2769e598";
+  let aqiApiUrl = `${aqiApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${aqiApiKey}`;
+  axios.get(aqiApiUrl).then(displayCityAqi);
+
+  cUnit.classList.add("active");
+  fUnit.classList.remove("active");
+  let minMax = document.querySelector(".temp-num");
+  minMax.innerHTML = `Max ${Math.round(maxCTemp)}°C<br />Min
+                     ${Math.round(minCTemp)}°C`;
+
   cTemp = response.data.main.temp;
   let retrievedCurrentTemp = Number(Math.round(cTemp));
   let currentTemp = document.querySelector("#current-temp");
@@ -207,6 +227,8 @@ function displayCityNameTemp(response) {
   let retrievedMaxTemp = Number(Math.round(maxCTemp));
   let maxTemp = document.querySelector("#max-temp");
   maxTemp.innerHTML = retrievedMaxTemp;
+
+  //bug: when user changes back and forth between C and F, then search another city, only the temperature data is refreshed.
 
   minCTemp = response.data.main.temp_min;
   let retrievedMinTemp = Number(Math.round(minCTemp));
@@ -258,19 +280,6 @@ function displayCityNameTemp(response) {
       }
     }
   }
-
-  let cityLon = response.data.coord.lon;
-  let cityLat = response.data.coord.lat;
-
-  let onecallApiEndpoint = "https://api.openweathermap.org/data/2.5/onecall?";
-  let onecallApiKey = "0bc8b420ecade609fc97283e2769e598";
-  let onecallApiUrl = `${onecallApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${onecallApiKey}`;
-  axios.get(onecallApiUrl).then(displayCityWeather);
-
-  let aqiApiEndpoint = "https://api.openweathermap.org/data/2.5/air_pollution?";
-  let aqiApiKey = "0bc8b420ecade609fc97283e2769e598";
-  let aqiApiUrl = `${aqiApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${aqiApiKey}`;
-  axios.get(aqiApiUrl).then(displayCityAqi);
 }
 
 //3.1. Call Weather API using input city name//
@@ -283,7 +292,6 @@ function retrieveCityInput(event) {
   let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(displayCityNameTemp);
 }
-
 let cTemp = null;
 let maxCTemp = null;
 let minCTemp = null;
