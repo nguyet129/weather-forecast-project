@@ -1,7 +1,7 @@
 .container {
   color: white;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-family: "Corben", cursive;
 }
 img {
@@ -28,8 +28,7 @@ h2 {
 footer {
   text-align: center;
   color: #31326f;
-  padding: 20px;
-  padding-bottom: 10px;
+  padding: 20px 20px 0;
   font-size: 18px;
   font-weight: 900;
   font-family: "Lobster Two", cursive;
