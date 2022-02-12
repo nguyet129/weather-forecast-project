@@ -178,56 +178,29 @@ function displayCityWeather(response) {
   uviDetailDesc.innerHTML = retrievedUviDetailDesc;
 }
 
-//3.2. Retrieve and display city's name and current temperature from 3.1 Weather API call. Inject the result into HTML.
-//Call Onecall and Air API using retrieved long lat from 3.1 Current Weather API call.
-
-function displayCityNameTemp(response) {
-  console.log(response);
-  let retrievedCity = response.data.name;
-  let currentCity = document.querySelector("#current-place");
-  currentCity.innerHTML = retrievedCity;
-  let currentCityFuture = document.querySelector("#current-city-future");
-  currentCityFuture.innerHTML = retrievedCity;
-  let currentCityMusic = document.querySelector("#current-city-music");
-  currentCityMusic.innerHTML = retrievedCity;
-
-  let cityLon = response.data.coord.lon;
-  let cityLat = response.data.coord.lat;
-
+function getWeatherReportAndForecast(coordinates) {
+  let cityLon = coordinates.lon;
+  let cityLat = coordinates.lat;
   let onecallApiEndpoint = "https://api.openweathermap.org/data/2.5/onecall?";
   let onecallApiKey = "0bc8b420ecade609fc97283e2769e598";
   let onecallApiUrl = `${onecallApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${onecallApiKey}`;
   axios.get(onecallApiUrl).then(displayCityWeather);
+  axios.get(onecallApiUrl).then(displayForecast);
+}
 
+function getCityAqi(coordinates) {
+  let cityLon = coordinates.lon;
+  let cityLat = coordinates.lat;
   let aqiApiEndpoint = "https://api.openweathermap.org/data/2.5/air_pollution?";
   let aqiApiKey = "0bc8b420ecade609fc97283e2769e598";
   let aqiApiUrl = `${aqiApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${aqiApiKey}`;
   axios.get(aqiApiUrl).then(displayCityAqi);
+}
 
-  cUnit.classList.add("active");
-  fUnit.classList.remove("active");
-
-  retrievedCTemp = response.data.main.temp;
-  let retrievedCurrentTemp = Number(Math.round(retrievedCTemp));
-  let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = retrievedCurrentTemp;
-
-  retrievedMaxCTemp = Number(Math.round(response.data.main.temp_max));
-  let maxTemp = document.querySelector("#max-temp");
-  maxTemp.innerHTML = retrievedMaxCTemp;
-
-  retrievedMinCTemp = Number(Math.round(response.data.main.temp_min));
-  let minTemp = document.querySelector("#min-temp");
-  minTemp.innerHTML = retrievedMinCTemp;
-
-  let maxUnit = document.querySelector("#max-unit");
-  let minUnit = document.querySelector("#min-unit");
-  maxUnit.innerHTML = `°C`;
-  minUnit.innerHTML = `°C`;
-
-  //Feature 6: Music recommendation based on weather search result
-  let retrievedWeatherCode = Number(response.data.weather[0].id);
+function recommendMusic(retrievedCurrentTemp, retrievedWeatherCode) {
   let musicLink = document.querySelector("#music-link");
+  console.log(retrievedWeatherCode);
+  console.log(retrievedCurrentTemp);
   if (retrievedWeatherCode < 500) {
     musicLink.setAttribute(
       "href",
@@ -269,6 +242,44 @@ function displayCityNameTemp(response) {
       }
     }
   }
+}
+//3.2. Retrieve and display city's name and current temperature from 3.1 Weather API call. Inject the result into HTML.
+//Call Onecall and Air API using retrieved long lat from 3.1 Current Weather API call.
+
+function displayCityNameTemp(response) {
+  console.log(response);
+  let retrievedCity = response.data.name;
+  let currentCity = document.querySelector("#current-place");
+  currentCity.innerHTML = retrievedCity;
+  let currentCityFuture = document.querySelector("#current-city-future");
+  currentCityFuture.innerHTML = retrievedCity;
+  let currentCityMusic = document.querySelector("#current-city-music");
+  currentCityMusic.innerHTML = retrievedCity;
+
+  cUnit.classList.add("active");
+  fUnit.classList.remove("active");
+
+  retrievedCTemp = response.data.main.temp;
+  let retrievedCurrentTemp = Number(Math.round(retrievedCTemp));
+  let currentTemp = document.querySelector("#current-temp");
+  currentTemp.innerHTML = retrievedCurrentTemp;
+
+  retrievedMaxCTemp = Number(Math.round(response.data.main.temp_max));
+  let maxTemp = document.querySelector("#max-temp");
+  maxTemp.innerHTML = retrievedMaxCTemp;
+
+  retrievedMinCTemp = Number(Math.round(response.data.main.temp_min));
+  let minTemp = document.querySelector("#min-temp");
+  minTemp.innerHTML = retrievedMinCTemp;
+
+  let maxUnit = document.querySelector("#max-unit");
+  let minUnit = document.querySelector("#min-unit");
+  maxUnit.innerHTML = `°C`;
+  minUnit.innerHTML = `°C`;
+
+  getWeatherReportAndForecast(response.data.coord);
+  getCityAqi(response.data.coord);
+  recommendMusic(retrievedCurrentTemp, Number(response.data.weather[0].id));
 }
 
 //3.1. Call Weather API using input city name//
@@ -315,7 +326,8 @@ window.onload = function displayDefaultWeather(event) {
 
 //Feature 6: Display Weather forecast of the input city
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecast = document.querySelector("#weather-forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["TUE", "WED", "THU", "FRI", "SAT"];
