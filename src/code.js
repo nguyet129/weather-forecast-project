@@ -40,14 +40,14 @@ function displayCTemp(event) {
 
   cUnit.classList.add("active");
   fUnit.classList.remove("active");
-  //let maxTemp = document.querySelector("#max-temp");
-  //let maxUnit = document.querySelector("#max-unit");
-  //let minTemp = document.querySelector("#min-temp");
-  //let minUnit = document.querySelector("#minUnit");
   let maxCTemp = document.querySelector("#max-temp");
   let minCTemp = document.querySelector("#min-temp");
+  let maxUnit = document.querySelector("#max-unit");
+  let minUnit = document.querySelector("#min-unit");
   maxCTemp.innerHTML = Math.round(retrievedMaxCTemp);
   minCTemp.innerHTML = Math.round(retrievedMinCTemp);
+  maxUnit.innerHTML = `°C`;
+  minUnit.innerHTML = `°C`;
 }
 
 //from C to F//
@@ -64,8 +64,12 @@ function displayFTemp(event) {
   fUnit.classList.add("active");
   let maxFTemp = document.querySelector("#max-temp");
   let minFTemp = document.querySelector("#min-temp");
+  let maxUnit = document.querySelector("#max-unit");
+  let minUnit = document.querySelector("#min-unit");
   maxFTemp.innerHTML = retrievedMaxFTemp;
   minFTemp.innerHTML = retrievedMinFTemp;
+  maxUnit.innerHTML = `°F`;
+  minUnit.innerHTML = `°F`;
 }
 
 //Feature 3: When a user searches for a city (example: New York), it should display the name of the city on the result page and the current temperature of the city.//
@@ -208,6 +212,19 @@ function displayCityNameTemp(response) {
   let currentTemp = document.querySelector("#current-temp");
   currentTemp.innerHTML = retrievedCurrentTemp;
 
+  retrievedMaxCTemp = Number(Math.round(response.data.main.temp_max));
+  let maxTemp = document.querySelector("#max-temp");
+  maxTemp.innerHTML = retrievedMaxCTemp;
+
+  retrievedMinCTemp = Number(Math.round(response.data.main.temp_min));
+  let minTemp = document.querySelector("#min-temp");
+  minTemp.innerHTML = retrievedMinCTemp;
+
+  let maxUnit = document.querySelector("#max-unit");
+  let minUnit = document.querySelector("#min-unit");
+  maxUnit.innerHTML = `°C`;
+  minUnit.innerHTML = `°C`;
+
   //Feature 6: Music recommendation based on weather search result
   let retrievedWeatherCode = Number(response.data.weather[0].id);
   let musicLink = document.querySelector("#music-link");
@@ -252,16 +269,6 @@ function displayCityNameTemp(response) {
       }
     }
   }
-  retrievedMaxCTemp = Number(Math.round(response.data.main.temp_max));
-  console.log(retrievedMaxCTemp);
-  let maxTemp = document.querySelector("#max-temp");
-  maxTemp.innerHTML = retrievedMaxCTemp;
-
-  //bug: when user changes back and forth between C and F, then search another city, only the temperature data is refreshed.
-
-  retrievedMinCTemp = Number(Math.round(response.data.main.temp_min));
-  let minTemp = document.querySelector("#min-temp");
-  minTemp.innerHTML = retrievedMinCTemp;
 }
 
 //3.1. Call Weather API using input city name//
