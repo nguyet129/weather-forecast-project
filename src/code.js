@@ -183,7 +183,8 @@ function getWeatherReportAndForecast(coordinates) {
   let cityLat = coordinates.lat;
   let onecallApiEndpoint = "https://api.openweathermap.org/data/2.5/onecall?";
   let onecallApiKey = "0bc8b420ecade609fc97283e2769e598";
-  let onecallApiUrl = `${onecallApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${onecallApiKey}`;
+  let unit = "metric";
+  let onecallApiUrl = `${onecallApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${onecallApiKey}&units=${unit}`;
   axios.get(onecallApiUrl).then(displayCityWeather);
   axios.get(onecallApiUrl).then(displayForecast);
 }
@@ -199,8 +200,6 @@ function getCityAqi(coordinates) {
 
 function recommendMusic(retrievedCurrentTemp, retrievedWeatherCode) {
   let musicLink = document.querySelector("#music-link");
-  console.log(retrievedWeatherCode);
-  console.log(retrievedCurrentTemp);
   if (retrievedWeatherCode < 500) {
     musicLink.setAttribute(
       "href",
@@ -325,20 +324,34 @@ window.onload = function displayDefaultWeather(event) {
 };
 
 //Feature 6: Display Weather forecast of the input city
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  let day = days[date.getDay()];
+  console.log(date.getDate());
+  return day;
+}
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let dailyForecast = response.data.daily;
+  console.log(dailyForecast);
+
   let forecast = document.querySelector("#weather-forecast");
   let forecastHTML = `<div class="row">`;
-  let days = ["TUE", "WED", "THU", "FRI", "SAT"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-md future-each">
-                    <div class="future-date">${day}</div>
-                    <div class="future-icon">🌧</div>
-                    <div class="future-temp">28°C</div>
+  dailyForecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-md future-each">
+                    <div class="future-date">${formatDay(forecastDay.dt)}</div>
+                    <img src="https://openweathermap.org/img/wn/${
+                      forecastDay.weather[0].icon
+                    }@2x.png" class="future-icon" height="50px">
+                    <div class="future-temp">${Math.round(
+                      forecastDay.temp.day
+                    )}°C</div>
                   </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecast.innerHTML = forecastHTML;
@@ -362,7 +375,6 @@ fUnit.addEventListener("click", displayFTemp);
 let currentButton = document.querySelector("#current-search");
 currentButton.addEventListener("click", retrieveCurrentPosition);
 
-displayForecast();
 //Feature 7: Display Current weather in other cities by default
 
 /*function displayWeatherOtherCities(response) {
