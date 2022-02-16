@@ -316,7 +316,7 @@ function retrieveCurrentPosition(event) {
 window.onload = function displayDefaultWeather(event) {
   event.preventDefault();
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
-  let cityInput = "melbourne";
+  let cityInput = "ha noi";
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
   let apiUrl = `${apiEndpoint}q=${cityInput}&units=${unit}&appid=${apiKey}`;
@@ -375,19 +375,21 @@ fUnit.addEventListener("click", displayFTemp);
 let currentButton = document.querySelector("#current-search");
 currentButton.addEventListener("click", retrieveCurrentPosition);
 
+//Feature: Display Other Cities' Weather Report on click
+
 //Feature 7: Display Current weather in other cities by default
 
-/*function displayWeatherOtherCities(response) {
-  let retrievedTempOtherCities = Math.round(response.data.main.temp);
-  let tempOtherCities = document.querySelector(".other-temp");
-  tempOtherCities.innerHTML = retrievedTempOtherCities;
+/*function displaySydney(response) {
+  let retrievedTempSydney = Math.round(response.data.main.temp);
+  let tempOtherCities = document.querySelector("#sydney-temp");
+  tempOtherCities.innerHTML = retrievedTempSydney;
 }
-window.onload = function retrieveWeatherOtherCities(event) {
+window.onload = function retrieveSydney(event) {
   event.preventDefault();
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
-  let cityInput = document.querySelectorAll(".city");
+  let cityInput = "sydney";
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
-  let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayWeatherOtherCities);
+  let apiUrl = `${apiEndpoint}q=${cityInput}&units=${unit}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displaySydney);
 };*/
