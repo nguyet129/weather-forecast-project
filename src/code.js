@@ -183,9 +183,16 @@ function getWeatherReportAndForecast(coordinates) {
   let cityLat = coordinates.lat;
   let onecallApiEndpoint = "https://api.openweathermap.org/data/2.5/onecall?";
   let onecallApiKey = "0bc8b420ecade609fc97283e2769e598";
-  let onecallApiUrl = `${onecallApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${onecallApiKey}`;
-  axios.get(onecallApiUrl).then(displayCityWeather);
-  axios.get(onecallApiUrl).then(displayForecast);
+  let unit = "metric";
+  let onecallApiUrl = `${onecallApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${onecallApiKey}&units=${unit}`;
+  axios
+    .get(onecallApiUrl)
+    .then(displayCityWeather)
+    .catch((error) => console.log(error));
+  axios
+    .get(onecallApiUrl)
+    .then(displayForecast)
+    .catch((error) => console.log(error));
 }
 
 function getCityAqi(coordinates) {
@@ -194,13 +201,14 @@ function getCityAqi(coordinates) {
   let aqiApiEndpoint = "https://api.openweathermap.org/data/2.5/air_pollution?";
   let aqiApiKey = "0bc8b420ecade609fc97283e2769e598";
   let aqiApiUrl = `${aqiApiEndpoint}lon=${cityLon}&lat=${cityLat}&appid=${aqiApiKey}`;
-  axios.get(aqiApiUrl).then(displayCityAqi);
+  axios
+    .get(aqiApiUrl)
+    .then(displayCityAqi)
+    .catch((error) => console.log(error));
 }
 
 function recommendMusic(retrievedCurrentTemp, retrievedWeatherCode) {
   let musicLink = document.querySelector("#music-link");
-  console.log(retrievedWeatherCode);
-  console.log(retrievedCurrentTemp);
   if (retrievedWeatherCode < 500) {
     musicLink.setAttribute(
       "href",
@@ -246,7 +254,7 @@ function recommendMusic(retrievedCurrentTemp, retrievedWeatherCode) {
 //3.2. Retrieve and display city's name and current temperature from 3.1 Weather API call. Inject the result into HTML.
 //Call Onecall and Air API using retrieved long lat from 3.1 Current Weather API call.
 
-function displayCityNameTemp(response) {
+function displayCityNameTemp(response, cityInput) {
   console.log(response);
   let retrievedCity = response.data.name;
   let currentCity = document.querySelector("#current-place");
@@ -280,6 +288,9 @@ function displayCityNameTemp(response) {
   getWeatherReportAndForecast(response.data.coord);
   getCityAqi(response.data.coord);
   recommendMusic(retrievedCurrentTemp, Number(response.data.weather[0].id));
+
+  let tempElement = document.querySelector(`#${cityInput}-temp`);
+  tempElement.innerHTML = response.data.main.temp;
 }
 
 //3.1. Call Weather API using input city name//
@@ -290,7 +301,10 @@ function retrieveCityInput(event) {
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
   let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayCityNameTemp);
+  axios
+    .get(apiUrl)
+    .then(displayCityNameTemp)
+    .catch((error) => console.log(error));
 }
 
 //https://api.openweathermap.org/data/2.5/weather?q=london&units=metric&appid=0bc8b420ecade609fc97283e2769e598
@@ -305,7 +319,10 @@ function retrieveLongLat(position) {
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
   let apiUrl = `${apiEndpoint}lat=${lat}&lon=${long}&units=${unit}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayCityNameTemp);
+  axios
+    .get(apiUrl)
+    .then(displayCityNameTemp)
+    .catch((error) => console.log(error));
 }
 //4.1. Set up Current button to trigger retrieving user's long lat on click//
 function retrieveCurrentPosition(event) {
@@ -316,29 +333,61 @@ function retrieveCurrentPosition(event) {
 //Feature 5: Display Weather Report of Tokyo by default
 window.onload = function displayDefaultWeather(event) {
   event.preventDefault();
+  currentCityWeather("melbourne");
+};
+
+function currentCityWeather(cityInput) {
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
-  let cityInput = "melbourne";
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
   let apiUrl = `${apiEndpoint}q=${cityInput}&units=${unit}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayCityNameTemp);
-};
+  axios
+    .get(apiUrl)
+    //.then(function(response){ displayCityNameTemp(response, cityInput)})
+    .then((response) => displayCityNameTemp(response, cityInput))
+    .catch((error) => console.log(error));
+}
+
+function retriveCurrentCititesWeather(cityInput) {
+  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
+  let apiKey = "0bc8b420ecade609fc97283e2769e598";
+  let unit = "metric";
+  let apiUrl = `${apiEndpoint}q=${cityInput}&units=${unit}&appid=${apiKey}`;
+  axios
+    .get(apiUrl)
+    .then(otherCityCurrentWeather)
+    .catch((error) => console.log(error));
+}
 
 //Feature 6: Display Weather forecast of the input city
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  let day = days[date.getDay()];
+  console.log(date.getDate());
+  return day;
+}
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let dailyForecast = response.data.daily;
+  console.log(dailyForecast);
+
   let forecast = document.querySelector("#weather-forecast");
   let forecastHTML = `<div class="row">`;
-  let days = ["TUE", "WED", "THU", "FRI", "SAT"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-md future-each">
-                    <div class="future-date">${day}</div>
-                    <div class="future-icon">🌧</div>
-                    <div class="future-temp">28°C</div>
+  dailyForecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-md future-each">
+                    <div class="future-date">${formatDay(forecastDay.dt)}</div>
+                    <img src="https://openweathermap.org/img/wn/${
+                      forecastDay.weather[0].icon
+                    }@2x.png" class="future-icon" height="50px">
+                    <div class="future-temp">${Math.round(
+                      forecastDay.temp.day
+                    )}°C</div>
                   </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecast.innerHTML = forecastHTML;
@@ -362,20 +411,21 @@ fUnit.addEventListener("click", displayFTemp);
 let currentButton = document.querySelector("#current-search");
 currentButton.addEventListener("click", retrieveCurrentPosition);
 
-displayForecast();
+//Feature: Display Other Cities' Weather Report on click
+
 //Feature 7: Display Current weather in other cities by default
 
-/*function displayWeatherOtherCities(response) {
-  let retrievedTempOtherCities = Math.round(response.data.main.temp);
-  let tempOtherCities = document.querySelector(".other-temp");
-  tempOtherCities.innerHTML = retrievedTempOtherCities;
+/*function displaySydney(response) {
+  let retrievedTempSydney = Math.round(response.data.main.temp);
+  let tempOtherCities = document.querySelector("#sydney-temp");
+  tempOtherCities.innerHTML = retrievedTempSydney;
 }
-window.onload = function retrieveWeatherOtherCities(event) {
+window.onload = function retrieveSydney(event) {
   event.preventDefault();
   let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
-  let cityInput = document.querySelectorAll(".city");
+  let cityInput = "sydney";
   let apiKey = "0bc8b420ecade609fc97283e2769e598";
   let unit = "metric";
-  let apiUrl = `${apiEndpoint}q=${cityInput.value}&units=${unit}&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayWeatherOtherCities);
+  let apiUrl = `${apiEndpoint}q=${cityInput}&units=${unit}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displaySydney);
 };*/
